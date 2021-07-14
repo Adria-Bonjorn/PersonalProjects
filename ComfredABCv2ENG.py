@@ -8,12 +8,12 @@ print("\n----------------------------------------")
 print("AIR CONDITIONING MACHINE SELECTION - Adrià Bonjorn")
 print("----------------------------------------\n")
 
-#--------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
 #This program is meant to be a practice project applied to a necessity in my current job.
 #The main idea is to develop a simple set of algorithms that allows AC machine selection
 #(based on some of my own empirical coeficients) for non technical staff in order to improve
 #client atention and productivity in my current company, an AC distributor (Comfred Suministros)
-#--------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
 
 #Initialize variables
 ti=0 #Type of machine
