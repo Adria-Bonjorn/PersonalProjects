@@ -1,0 +1,33 @@
+#I'am bored so... I'will try to make a lil game.
+#The idea is to ask the user for a range of values,
+#generate a random number in this range and ask the user to try to guess it.
+#Ther will be some hints too, like "higher" or "lower"
+
+print("Let's play a game!!!")
+print("Give me a range of numbers, I choose one number in this range and you try to guess it!")
+
+
+
+minRange=input("Introduce the lower limit of the range (it has to be an integer):")
+#print(minRange)
+checkLower = isinstance(minRange,int)
+#print(checkLower)
+
+while checkLower==False:
+    print("That's not an integer! Try again!")
+    minRange=input("Introduce the lower limit of the range (it has to be an integer):")
+    checkLower=isinstance(minRange,int)
+    print(checkLower)
+  
+maxRange=input("Introduce the upper limit of the range(it has to be an integer and higher than the lower):")
+
+while isinstance(maxRange,int)==False or maxRange<=minRange:
+  
+  if isinstance(maxRange,int)==False:
+    print("That's not an integer! Try again!")
+    maxRange=input("Introduce the upper limit of the range (it has to be an integer):")
+  else:
+    print("The upper limit has to be higher thatn the lower! Try again!")
+    maxRange=input("Introduce the upper limit of the range (it has to be an integer and higher than the lower):")
+
+theNumber=randint(minRange,maxRange)
