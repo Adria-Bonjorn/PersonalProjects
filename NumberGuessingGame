@@ -1,33 +1,60 @@
+#ADRIA BONJORN
+
 #I'am bored so... I'will try to make a lil game.
 #The idea is to ask the user for a range of values,
 #generate a random number in this range and ask the user to try to guess it.
 #Ther will be some hints too, like "higher" or "lower"
+
+from random import randint
 
 print("Let's play a game!!!")
 print("Give me a range of numbers, I choose one number in this range and you try to guess it!")
 
 
 
-minRange=input("Introduce the lower limit of the range (it has to be an integer):")
-#print(minRange)
-checkLower = isinstance(minRange,int)
-#print(checkLower)
+minRange=int(input("Introduce the lower limit of the range (it has to be an integer):"))
+       
+ 
+maxRange=int(input("Introduce the upper limit of the range(it has to be an integer and higher than the lower):"))
 
-while checkLower==False:
-    print("That's not an integer! Try again!")
-    minRange=input("Introduce the lower limit of the range (it has to be an integer):")
-    checkLower=isinstance(minRange,int)
-    print(checkLower)
-  
-maxRange=input("Introduce the upper limit of the range(it has to be an integer and higher than the lower):")
-
-while isinstance(maxRange,int)==False or maxRange<=minRange:
-  
-  if isinstance(maxRange,int)==False:
-    print("That's not an integer! Try again!")
-    maxRange=input("Introduce the upper limit of the range (it has to be an integer):")
-  else:
+while maxRange<=minRange:
+    
     print("The upper limit has to be higher thatn the lower! Try again!")
-    maxRange=input("Introduce the upper limit of the range (it has to be an integer and higher than the lower):")
+    maxRange=int(input("Introduce the upper limit of the range (it has to be an integer and higher than the lower):"))
 
 theNumber=randint(minRange,maxRange)
+guess=False
+
+print("\nIt's guessing time!!!\n")
+guessNumber=int(input("Give me a number:"))
+
+if guessNumber!=theNumber:
+
+    while guess==False:
+
+        print("\nThat's wrong!!!\n")
+
+        if guessNumber<=theNumber:
+
+            print("Try a higher number...\n")
+
+        else:
+
+            print("Try a lower number...\n")
+
+        guessNumber=int(input("Give me a number:"))
+
+        if guessNumber==theNumber:
+
+            guess=True
+            
+        else:
+
+            guess=False
+
+
+print("\n___\\º-º//______\\º-º//______\\º-º//______\\º-º//___\n")
+print(">>>>  Thats right!!! You guess it!!!  <<<<")
+print("___\\º-º//______\\º-º//______\\º-º//______\\º-º//___\n")
+
+    
