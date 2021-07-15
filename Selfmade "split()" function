@@ -1,0 +1,20 @@
+def mysplit(strng):
+    x=""
+    xx=[]
+    for i in range(len(strng)):
+        
+        if strng[i]!=" ":
+            x+=strng[i]
+        else:
+            xx.append(x)
+            xx=[i for i in xx if i]
+            x=""
+    
+    return xx
+    
+
+print(mysplit("To be or not to be, that is the question"))
+print(mysplit("To be or not to be,that is the question"))
+print(mysplit("   "))
+print(mysplit(" abc "))
+print(mysplit(""))
