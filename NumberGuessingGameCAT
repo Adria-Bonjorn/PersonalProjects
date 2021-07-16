@@ -1,0 +1,58 @@
+#ADRIA BONJORN
+
+#I'am bored so... I'will try to make a lil game.
+#The idea is to ask the user for a range of values,
+#generate a random number in this range and ask the user to try to guess it.
+#Ther will be some hints too, like "higher" or "lower"
+
+from random import randint
+
+print("Juguem!!!")
+print("Dona'm un rang de números, en trio un dins d'aquest rang i tú l'intentes endevinar!")
+
+
+
+minRange=int(input("Introdueix el limit inferior del rang (ha de ser un enter):"))
+       
+ 
+maxRange=int(input("Introdueix el limit superior del rang(ha de ser un enter mes gran que limit inferior):"))
+
+while maxRange<=minRange:
+    
+    print("El limit superior ha de ser mes alt que l'inferior! Torna-ho a intentar!")
+    maxRange=int(input("Introdueix el limit superior del rang(ha de ser un enter mes gran que limit inferior):"))
+
+theNumber=randint(minRange,maxRange)
+guess=False
+
+print("\nÉs l'hora de les endevinalles!!!\n")
+guessNumber=int(input("Dona'm un número:"))
+
+if guessNumber!=theNumber:
+
+    while guess==False:
+
+        print("\nIncorrecte!!!\n")
+
+        if guessNumber<=theNumber:
+
+            print("Prova un número més alt...\n")
+
+        else:
+
+            print("Prova un número més baix...\n")
+
+        guessNumber=int(input("Dona'm un número:"))
+
+        if guessNumber==theNumber:
+
+            guess=True
+            
+        else:
+
+            guess=False
+
+
+print("\n___\\º-º/______\\º-º/______\\º-º/______\\º-º/___\n")
+print(">>>>  Correcte!!! L'has encertat!!!  <<<<")
+print("___\\º-º/______\\º-º/______\\º-º/______\\º-º/___\n")
