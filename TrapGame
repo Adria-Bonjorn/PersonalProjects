@@ -1,0 +1,163 @@
+#Adrià Bonjorn Cervera
+
+#It's a trap game.
+#Move through the map to reach the Finish(F) cell.
+#If you are lucky you won't fall in a trap.
+#There's no way to predict where the traps are (at least i hope so)
+#If you fall into 3 traps you loose.
+
+
+import numpy as np
+
+import random
+
+
+#Creating the game map (just a matrix) that user will see
+
+w,h = 10,10
+
+MapList=[["___" for x in range(w)]for y in range(h)]
+
+PlayerMap=np.array(MapList)
+
+Finish=[w-1,h-1]
+PlayerMap[Finish[0]][Finish[1]]="_F_"
+
+print(PlayerMap)
+
+#Creating a hidden map that user can't see and will contain the traps
+
+HiddenMap=np.array(MapList)
+
+TrapIndicesX=np.random.randint(0,w,10)
+TrapIndicesY=np.random.randint(0,h,10)
+
+
+for i in range(w):
+
+    HiddenMap[TrapIndicesX[i]][TrapIndicesY[i]]="_T_"
+    
+HiddenMap[0][0]="___"   #Player starting position can't be a trap!
+HiddenMap[1][0]="___"   #Player starting position collindants can't be a trap!
+HiddenMap[0][1]="___"   #Player starting position collindants can't be a trap!
+
+
+#Creating de the player avatar
+
+class PlayerClass:
+
+    def __init__(self,PosR,PosC,LastPosR,LastPosC,State,HP):
+
+        self.PosR = PosR #Current row position
+        self.PosC = PosC #Current column position
+        self.LastPosR = LastPosR
+        self.LastPosC = LastPosC
+        self.State = State #Death or Alive
+        self.HP = HP #Health Points
+        
+    #Creating the function that controls de movement of the player
+    def NewPos(self):
+
+        move=int(input("(1)-UP\n(2)-DOWN\n(3)RIGHT\n(4)LEFT"))
+
+        if move==1:
+            moveR=-1
+            moveC=0
+        elif move==2:
+            moveR=1
+            moveC=0
+        elif move==3:
+            moveR=0
+            moveC=1
+        else:
+            moveR=0
+            moveC=-1
+
+        #Saving the player last position
+        LastPosR=self.PosR
+        LastPosC=self.PosC
+
+        #Keeping the player inside the map
+        if self.PosR+moveR>=0 and self.PosR+moveR<w:
+
+            NewPosR=self.PosR+moveR
+
+        else:
+            NewPosR=self.PosR
+
+        if self.PosC+moveC>=0 and self.PosC+moveC<h:
+
+            NewPosC=self.PosC+moveC
+
+        else:
+            NewPosC=self.PosC 
+            
+                    
+        return NewPosR,NewPosC,LastPosR,LastPosC
+
+        
+#Setting Player attributes
+Player=PlayerClass(0,0,0,0,"Alive",3)
+
+
+PlayerMap[Player.PosR][Player.PosC]="_P_"
+
+
+#GAME STARTS!!!
+
+print("\nTry to reach the Finish(F) cell!!!\n")
+print(PlayerMap)
+
+while Player.PosR!=Finish[0] or Player.PosC!=Finish[1]:
+
+    #Player moves to new position
+    Player.PosR,Player.PosC,Player.LastPosR,Player.LastPosC=Player.NewPos()
+
+    
+    #If there's no trap
+    if HiddenMap[Player.PosR][Player.PosC]!="_T_":
+
+        PlayerMap[Player.PosR][Player.PosC]="_P_"
+
+        if Player.LastPosR!=Player.PosR or Player.LastPosC!=Player.PosC:
+            PlayerMap[Player.LastPosR][Player.LastPosC]="___"
+
+    #If there's a trap
+    else:
+
+        Player.HP-=1 #If you fall in a trap Health Points decrease by 1
+
+        PlayerMap[Player.PosR][Player.PosC]="_T_"
+
+        #Player goes back to his last position
+        Player.PosR=Player.LastPosR
+        Player.PosC=Player.LastPosC
+        PlayerMap[Player.PosR][Player.PosC]="_P_"
+
+    #If Health Points get to 0, the game ends
+    if Player.HP==0:
+
+        Player.State="Death"
+
+        print("______________________________________________________________")
+        print("\nPlayer state:", Player.State,"|| HP:", Player.HP, "\n")
+        print(PlayerMap)
+        print("______________________________________________________________")
+
+        print("GAME OVER !")
+        
+        break
+
+    print("______________________________________________________________")
+    print("\nPlayer state:", Player.State,"|| HP:", Player.HP, "\n")
+    print(PlayerMap)
+    print("______________________________________________________________")
+
+if Player.HP>0:
+    
+    print("______________________________________________________________")
+    print("\nPlayer state:", Player.State,"|| HP:", Player.HP, "\n")
+    print(PlayerMap)
+    print("\nYOU WIN!!!\n")
+    print("______________________________________________________________")
+
